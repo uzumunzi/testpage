@@ -44,14 +44,14 @@ export default function HomePage() {
         <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-[#EEE] lg:hidden" />
 
         {/* Body */}
-        <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto lg:py-8">
+        <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-0 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto lg:h-[calc(100vh-64px)]">
           {/* Left Column - Desktop: Hero + Navigation / Mobile: All content */}
-          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 lg:w-1/2 xl:w-2/5">
+          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 lg:w-1/2 xl:w-2/5 lg:px-12 xl:px-16 lg:py-8 lg:h-full lg:overflow-hidden">
             {/* Hero Section */}
-            <div className="bg-[#CFCFCF] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[600px] w-full rounded-lg" />
+            <div className="bg-[#CFCFCF] h-[300px] sm:h-[350px] md:h-[400px] lg:flex-1 lg:min-h-[400px] w-full rounded-lg" />
 
             {/* Bottom Navigation - Mobile: inline, Desktop: below hero */}
-            <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 h-16 sm:h-18 md:h-20 lg:h-24 items-center justify-center w-full bg-white rounded-lg shadow-sm border border-gray-100 px-2 sm:px-4 lg:px-6">
+            <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 h-16 sm:h-18 md:h-20 lg:h-24 items-center justify-center w-full bg-white rounded-lg shadow-sm border border-gray-100 px-2 sm:px-4 lg:px-6 lg:flex-shrink-0">
               <div className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
                   <Home className="w-full h-full text-[#030303]" />
@@ -60,7 +60,10 @@ export default function HomePage() {
                   홈
                 </div>
               </div>
-              <Link href="/check/text" className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity">
+              <Link
+                href="/check/text"
+                className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity"
+              >
                 <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
                   <Edit className="w-full h-full text-[#CFCFCF]" />
                 </div>
@@ -88,7 +91,7 @@ export default function HomePage() {
           </div>
 
           {/* Right Column - Desktop: Content sections / Mobile: continuation */}
-          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 lg:w-1/2 xl:w-3/5 lg:pt-0">
+          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 lg:w-1/2 xl:w-3/5 lg:h-full lg:overflow-y-auto lg:px-12 xl:px-16 lg:py-8">
             {/* Continue Writing Section */}
             <div className="flex flex-col gap-2.5 sm:gap-3 lg:gap-4 py-3 sm:py-4 lg:py-6 w-full bg-blue-50 rounded-lg px-4 sm:px-6 lg:px-8">
               <div className="font-bold text-[#030303] text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] tracking-[-0.8px]">
@@ -150,9 +153,6 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-
-            {/* Bottom Spacing */}
-            <div className="h-8 sm:h-12 md:h-16 lg:h-20" />
           </div>
         </div>
       </div>
