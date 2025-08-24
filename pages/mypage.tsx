@@ -194,7 +194,7 @@ export default function MyPage() {
           </div>
           <div className="flex items-center justify-center p-1 w-11 h-11 lg:w-12 lg:h-12">
             <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8">
-              <Menu className="w-full h-full text-[#030303]" />
+              <Settings className="w-full h-full text-[#030303]" />
             </div>
           </div>
         </div>

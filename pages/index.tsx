@@ -204,7 +204,7 @@ export default function HomePage() {
         </div>
 
         {/* Space */}
-        <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-[#EEE] lg:hidden" />
+        <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-white lg:hidden" />
 
         {/* Body */}
         <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-0 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto lg:h-[calc(100vh-64px)]">
