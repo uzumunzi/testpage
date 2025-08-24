@@ -1,4 +1,4 @@
-hello// All components are in this single file as requested.
+// All components are in this single file as requested.
 // In a real Next.js project, you would structure these into separate files and folders.
 
 // We need to use 'use client' for client-side interactivity like state and event handlers.
