@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useMemo, useState, ChangeEvent } from 'react';
-import PageHeader from '@/components/PageHeader';
+import { Home, Menu, FileText, Edit2, Download } from 'lucide-react';
 
 export default function TextCheckPage() {
   const [value, setValue] = useState('');
@@ -13,64 +13,85 @@ export default function TextCheckPage() {
         <title>문서 검사 - 한이음 문서첨삭</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className="w-full min-h-screen flex flex-col bg-neutral-100 text-neutral-1000">
-        <PageHeader 
-          title="문서 검사" 
-          backHref="/" 
-          showBackButton={true}
-        />
-
-        <div className="container-responsive mt-4">
-          <div className="inline-flex rounded-lg border border-secondary/60 bg-neutral-100 p-1">
-            <button className="px-4 py-2 rounded-md bg-primary text-neutral-100 text-sm font-medium">
-              텍스트
-            </button>
-            <button className="px-4 py-2 rounded-md text-neutral-1000 text-sm font-medium hover:bg-secondary/30 transition-colors">
-              파일
-            </button>
+      <div className="bg-white relative w-full min-h-screen flex flex-col">
+        {/* Navigation Bar */}
+        <div className="bg-white flex h-11 sm:h-14 lg:h-16 items-center justify-between px-2 sm:px-4 lg:px-8 py-2.5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto border-b border-gray-100">
+          <Link href="/" className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center hover:opacity-80 transition-opacity">
+            <Home className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]" strokeWidth={2} />
+          </Link>
+          <div className="flex-1 font-bold text-[#1A1A1A] text-[20px] sm:text-[22px] lg:text-[24px] text-center tracking-[-1px]">
+            검사 페이지
+          </div>
+          <div className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center">
+            <Menu className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]" strokeWidth={2} />
           </div>
         </div>
 
-        <main className="flex-1 py-6 pb-20">
-          <div className="rounded-xl border border-secondary/60 bg-neutral-100 p-4 sm:p-6 mx-10 mb-10 flex flex-col">
-            <label htmlFor="text-input" className="block text-sm font-medium mb-2">
-              텍스트 입력
-            </label>
-            <textarea
-              id="text-input"
-              className="w-full flex-1 min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] resize-y rounded-lg border border-secondary/60 p-3 focus:border-primary focus:ring-0"
-              maxLength={800}
-              placeholder="검사할 텍스트를 입력하세요 (최대 800자)"
-              value={value}
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setValue(e.target.value)}
-            />
+        {/* Space - Mobile only */}
+        <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-[#EEE] lg:hidden" />
 
-            <div className="mt-3 text-sm text-neutral-1000/70">
-              <span>글자 수: {charCount}/800</span>
+        {/* Body */}
+        <div className="bg-white flex flex-col gap-2.5 px-5 py-2.5 w-full max-w-[393px] mx-auto flex-1">
+          {/* Task 1: File Upload */}
+          <div className="flex flex-col gap-2.5 w-full">
+            <div className="flex gap-2.5 items-center p-2.5">
+              <FileText className="w-6 h-6 text-[#4EA8DE]" strokeWidth={2} />
+              <div className="font-bold text-black text-[20px]">
+                1. 문제 파일 업로드
+              </div>
+            </div>
+            <div className="bg-[#F0F0F0] h-[100px] rounded-lg border-2 border-dashed border-[#CFCFCF] flex items-center justify-center">
+              <Download className="w-6 h-6 text-[#CFCFCF]" strokeWidth={2} />
             </div>
           </div>
-        </main>
 
-        <div className="fixed bottom-0 left-0 right-0 border-t border-secondary/60 bg-neutral-100">
-          <div className="container-responsive py-3">
-            <div className="grid grid-cols-4 gap-2">
-              <button
-                onClick={() => setValue('')}
-                className="col-span-1 w-full rounded-md px-3 py-2 bg-secondary text-neutral-1000 hover:opacity-90 transition-colors"
-              >
-                Clear
-              </button>
-              <Link
-                href="/check/result"
-                className="col-span-3 w-full rounded-md px-3 py-2 bg-primary text-neutral-100 hover:opacity-90 flex items-center justify-center transition-colors"
-              >
-                검사하기
-              </Link>
+          {/* Task 2: Text Input */}
+          <div className="flex flex-col gap-2.5 w-full flex-1">
+            <div className="flex gap-2.5 items-center p-2.5">
+              <Edit2 className="w-6 h-6 text-[#4EA8DE]" strokeWidth={2} />
+              <div className="font-bold text-black text-[20px]">
+                2. 답안 텍스트 입력
+              </div>
+            </div>
+            <div className="bg-white rounded-lg border border-[#CFCFCF] p-2.5 flex flex-col flex-1">
+              <textarea
+                className="w-full flex-1 min-h-[313px] resize-none border-none outline-none text-[14px] placeholder-gray-400"
+                maxLength={1000}
+                placeholder="답안을 입력하세요..."
+                value={value}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setValue(e.target.value)}
+              />
+              <div className="flex justify-end pt-2.5">
+                <div className="font-light text-black text-[12px] tracking-[-0.3px]">
+                  {charCount}/1000
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <footer className="pb-6" />
+        {/* Bottom Buttons */}
+        <div className="bg-white px-5 py-2.5 w-full max-w-[393px] mx-auto">
+          <div className="flex gap-2.5 w-full">
+            <button
+              onClick={() => setValue('')}
+              className="bg-[#F8F8F8] border border-[#CFCFCF] rounded px-4 py-3.5 font-bold text-[#1A1A1A] text-[15px] tracking-[-0.75px] min-w-[80px]"
+            >
+              Clear
+            </button>
+            <Link
+              href="/check/result"
+              className="bg-[#4EA8DE] rounded px-4 py-3.5 font-bold text-white text-[15px] tracking-[-0.75px] flex-1 flex items-center justify-center"
+            >
+              검사하기
+            </Link>
+          </div>
+        </div>
+
+        {/* Home Indicator */}
+        <div className="bg-white h-[34px] w-full max-w-[393px] mx-auto flex items-end justify-center pb-2">
+          <div className="w-[134px] h-[5px] bg-black opacity-70 rounded-full" />
+        </div>
       </div>
     </>
   );
