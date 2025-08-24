@@ -1,7 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useMemo, useState, ChangeEvent } from "react";
-import { Home, Menu, FileText, Edit2, Download } from "lucide-react";
+import {
+  Home,
+  Menu,
+  FileText,
+  Edit2,
+  Download,
+  ChevronRight,
+} from "lucide-react";
 
 export default function TextCheckPage() {
   const [value, setValue] = useState("");
@@ -117,19 +124,7 @@ export default function TextCheckPage() {
                   className="bg-[#4EA8DE] rounded px-4 sm:px-5 lg:px-6 xl:px-8 py-3.5 sm:py-4 lg:py-5 xl:py-6 font-bold text-white text-[15px] sm:text-[16px] lg:text-[17px] xl:text-[18px] tracking-[-0.75px] w-full sm:flex-1 lg:flex-2 xl:flex-3 flex items-center justify-center hover:bg-[#3A97CE] transition-colors order-1 sm:order-2"
                 >
                   <span className="mr-2 sm:mr-3 lg:mr-4">검사하기</span>
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
                 </Link>
               </div>
             </div>
