@@ -6,8 +6,8 @@ export default function BottomNav() {
   const router = useRouter();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2 sm:py-3 lg:py-4 max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
-      <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 h-16 sm:h-18 md:h-20 lg:h-24 items-center justify-center w-full">
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-1 sm:py-2 lg:py-3 max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
+      <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 h-14 sm:h-16 md:h-18 lg:h-20 items-center justify-center w-full">
         <Link
           href="/"
           className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity"

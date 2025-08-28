@@ -1,7 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import {
   ChevronRight,
+  ChevronLeft,
   Menu,
   Home,
   Edit,
@@ -9,8 +11,45 @@ import {
   User,
   Bell,
 } from "lucide-react";
+import { getTagColor } from "../utils/tagColors";
 
 export default function HomePage() {
+  // 캐러셀 상태 및 데이터 정의
+  const carouselItems = [
+    {
+      category: "과학/기술",
+      title: "인공지능(AI)이 미래 사회에 미칠 영향",
+      description:
+        "AI 기술의 발전이 인류의 삶을 어떻게 변화시킬지에 대한 깊이 있는 고찰이 필요한 시점입니다.",
+    },
+    {
+      category: "사회 이슈",
+      title: "기후 변화와 지속 가능한 발전",
+      description:
+        "전 지구적 과제인 기후 변화에 대응하고 지속 가능한 사회를 만들기 위한 방안을 논의해 봅시다.",
+    },
+    {
+      category: "문학",
+      title: "고전 문학이 현대 사회에 주는 교훈",
+      description:
+        "오랜 시간 동안 사랑받아 온 고전 작품들이 오늘날 우리에게 어떤 의미와 가치를 전달하는지 탐구해 보세요.",
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? carouselItems.length - 1 : prevIndex - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === carouselItems.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
   // 커스텀 로고 SVG 컴포넌트
   const LogoIcon = ({ className = "" }) => (
     <svg
@@ -210,8 +249,65 @@ export default function HomePage() {
         <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-0 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto lg:h-[calc(100vh-64px)]">
           {/* Left Column - Desktop: Hero + Navigation / Mobile: All content */}
           <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 lg:w-1/2 xl:w-2/5 lg:px-12 xl:px-16 lg:py-8 lg:h-full lg:overflow-hidden">
-            {/* Hero Section */}
-            <div className="bg-[#CFCFCF] h-[300px] sm:h-[350px] md:h-[400px] lg:flex-1 lg:min-h-[400px] w-full rounded-lg" />
+            {/* Hero Section - 이슈 탐색 캐러셀 */}
+            <div className="w-full lg:flex-1 lg:min-h-[400px]">
+              <h3 className="text-xl font-bold text-gray-700 mb-4">
+                이슈 탐색
+              </h3>
+              <div className="relative h-56 sm:h-64 md:h-72 lg:h-full w-full overflow-hidden">
+                <div
+                  className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                >
+                  {carouselItems.map((item, index) => (
+                    <div
+                      key={index}
+                      className="w-full flex-shrink-0 h-full bg-white border border-gray-200 rounded-2xl p-6 flex flex-col justify-between text-gray-800 shadow-sm"
+                    >
+                      <div>
+                        <p
+                          className={`font-semibold px-2 py-1 rounded-full inline-block text-xs mb-2 ${getTagColor(
+                            item.category
+                          )}`}
+                        >
+                          {item.category}
+                        </p>
+                        <h4 className="text-lg font-bold mb-2">{item.title}</h4>
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                      <button className="self-start bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-200 transition-colors mt-4">
+                        자세히 보기
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={prevSlide}
+                  className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full hover:bg-white/80 shadow transition-all"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full hover:bg-white/80 shadow transition-all"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                  {carouselItems.map((_, index) => (
+                    <div
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`w-2 h-2 rounded-full cursor-pointer transition-colors ${
+                        currentIndex === index ? "bg-gray-800" : "bg-gray-400"
+                      }`}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* Bottom Navigation - Mobile: inline, Desktop: below hero */}
             <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 h-16 sm:h-18 md:h-20 lg:h-24 items-center justify-center w-full bg-white rounded-lg shadow-sm border border-gray-100 px-2 sm:px-4 lg:px-6 lg:flex-shrink-0">
@@ -264,10 +360,11 @@ export default function HomePage() {
             {/* Continue Writing Section */}
             <div className="flex flex-col gap-2.5 sm:gap-3 lg:gap-4 py-3 sm:py-4 lg:py-6 w-full bg-blue-50 rounded-lg px-4 sm:px-6 lg:px-8">
               <div className="font-bold text-[#030303] text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] tracking-[-0.8px]">
-                00님이 마지막으로 작성하던 글로 이동할까요?
+                맞춤톡 님이 마지막으로 작성하던 글로 이동할까요?
               </div>
               <div className="font-light text-[#030303] text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] xl:text-[15px] tracking-[-0.6px] leading-relaxed">
-                작성하던 글 앞부분 .....
+                그 안에서 했던 일은 사무실에서 전화를 받고 고객들이 궁금해하는
+                사항을 기록하.....
               </div>
             </div>
 
@@ -279,9 +376,16 @@ export default function HomePage() {
               <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5 w-full">
                 {/* Active Tasks */}
                 <div className="bg-[#4EA8DE] flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 items-center justify-start px-4 sm:px-5 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8 rounded-lg w-full shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                  <div className="flex-1 flex gap-2.5 items-center justify-start">
+                  <div className="flex-1 flex flex-col gap-2 items-start justify-start">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getTagColor(
+                        "과학/기술"
+                      )}`}
+                    >
+                      과학/기술
+                    </span>
                     <div className="flex-1 font-bold text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] tracking-[-0.8px] leading-relaxed">
-                      ------------- 한 상황에서 ----에게 보낼 문자 작성해보기
+                      인공지능 시대의 윤리적 딜레마
                     </div>
                   </div>
                   <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9">
@@ -289,9 +393,16 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="bg-[#4EA8DE] flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 items-center justify-start px-4 sm:px-5 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8 rounded-lg w-full shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                  <div className="flex-1 flex gap-2.5 items-center justify-start">
+                  <div className="flex-1 flex flex-col gap-2 items-start justify-start">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getTagColor(
+                        "사회"
+                      )}`}
+                    >
+                      사회
+                    </span>
                     <div className="flex-1 font-bold text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] tracking-[-0.8px] leading-relaxed">
-                      ------------- 한 상황에서 ----에게 보낼 문자 작성해보기
+                      소셜 미디어가 민주주의에 미치는 영향
                     </div>
                   </div>
                   <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9">
@@ -301,9 +412,16 @@ export default function HomePage() {
 
                 {/* Inactive Tasks */}
                 <div className="bg-[#CFCFCF] flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 items-center justify-start px-4 sm:px-5 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8 rounded-lg w-full shadow-sm">
-                  <div className="flex-1 flex gap-2.5 items-center justify-start">
+                  <div className="flex-1 flex flex-col gap-2 items-start justify-start">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getTagColor(
+                        "new!"
+                      )}`}
+                    >
+                      new!
+                    </span>
                     <div className="flex-1 font-bold text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] tracking-[-0.8px] leading-relaxed">
-                      ------------- 한 상황에서 ----에게 보낼 문자 작성해보기
+                      작품 '데미안'을 통해 본 성장 서사
                     </div>
                   </div>
                   <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9">
@@ -311,9 +429,33 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="bg-[#CFCFCF] flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 items-center justify-start px-4 sm:px-5 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8 rounded-lg w-full shadow-sm">
-                  <div className="flex-1 flex gap-2.5 items-center justify-start">
+                  <div className="flex-1 flex flex-col gap-2 items-start justify-start">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getTagColor(
+                        "문학"
+                      )}`}
+                    >
+                      문학
+                    </span>
                     <div className="flex-1 font-bold text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] tracking-[-0.8px] leading-relaxed">
-                      ------------- 한 상황에서 ----에게 보낼 문자 작성해보기
+                      유전자 편집 기술의 미래와 규제
+                    </div>
+                  </div>
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9">
+                    <ChevronRight className="w-full h-full text-white" />
+                  </div>
+                </div>
+                <div className="bg-[#CFCFCF] flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 items-center justify-start px-4 sm:px-5 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8 rounded-lg w-full shadow-sm">
+                  <div className="flex-1 flex flex-col gap-2 items-start justify-start">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${getTagColor(
+                        "과학/기술"
+                      )}`}
+                    >
+                      과학/기술
+                    </span>
+                    <div className="flex-1 font-bold text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] tracking-[-0.8px] leading-relaxed">
+                      기본소득제 도입의 타당성 검토
                     </div>
                   </div>
                   <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9">
