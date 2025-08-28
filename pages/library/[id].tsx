@@ -258,7 +258,7 @@ export default function LibraryDetailPage() {
           <div className="flex gap-2.5 sm:gap-3 lg:gap-4 items-center justify-center px-3 py-3">
             <Link
               href="/library"
-              className="flex items-center justify-center p-1 w-8 h-8 lg:w-10 lg:h-10 hover:opacity-80 transition-opacity cursor-pointer mr-2"
+              className="flex items-center justify-center p-1 w-8 h-8 lg:w-10 lg:h-10 hover:opacity-80 transition-opacity cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#030303]" />
             </Link>
@@ -283,31 +283,36 @@ export default function LibraryDetailPage() {
           </div>
         </div>
 
-        {/* Space */}
-        <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-white lg:hidden" />
-
-        <main className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 mb-8">
-            <h2 className="text-xl font-semibold text-[#030303] mb-4">
+        {/* Body */}
+        <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
+          {/* 사용자 작성 원문 Section */}
+          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 w-full">
+            <h2 className="text-xl font-semibold text-[#030303]">
               사용자 작성 원문
             </h2>
-            <div className="p-4 bg-gray-50 rounded-lg text-[#030303] leading-relaxed">
-              {getHighlightedText()}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+              <div className="p-4 bg-gray-50 rounded-lg text-[#030303] leading-relaxed">
+                {getHighlightedText()}
+              </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-            <h2 className="text-xl font-semibold text-[#030303] mb-4">
-              개선된 글
-            </h2>
-            <div className="p-4 bg-blue-50 rounded-lg text-blue-800 leading-relaxed">
-              {libraryDetailData.correctedText}
+          {/* 개선된 글 Section */}
+          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 w-full">
+            <h2 className="text-xl font-semibold text-[#030303]">개선된 글</h2>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+              <div className="p-4 bg-blue-50 rounded-lg text-blue-800 leading-relaxed">
+                {libraryDetailData.correctedText}
+              </div>
             </div>
           </div>
-        </main>
+        </div>
 
         {/* Bottom Navigation */}
         <BottomNav />
+
+        {/* Bottom padding to account for fixed navigation */}
+        <div className="h-20 sm:h-24 md:h-28 lg:h-32" />
       </div>
     </>
   );

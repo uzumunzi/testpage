@@ -226,12 +226,11 @@ export default function LibraryPage() {
           </div>
         </div>
 
-        {/* Space */}
-        <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-white lg:hidden" />
-
-        <main className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
-          <div>
-            <div className="flex justify-between items-center mb-4">
+        {/* Body */}
+        <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
+          {/* 저장된 파일 Section */}
+          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 w-full">
+            <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold text-[#030303]">
                 저장된 파일
               </h3>
@@ -275,10 +274,13 @@ export default function LibraryPage() {
               ))}
             </div>
           </div>
-        </main>
+        </div>
 
         {/* Bottom Navigation */}
         <BottomNav />
+
+        {/* Bottom padding to account for fixed navigation */}
+        <div className="h-20 sm:h-24 md:h-28 lg:h-32" />
       </div>
     </>
   );

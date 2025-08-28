@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronRight,
   ChevronLeft,
@@ -14,25 +14,39 @@ import {
 import { getTagColor } from "../utils/tagColors";
 
 export default function HomePage() {
+  // 네비게이션 바 스크롤 상태
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [headerVisible, setHeaderVisible] = useState(true);
+
   // 캐러셀 상태 및 데이터 정의
   const carouselItems = [
     {
       category: "과학/기술",
-      title: "인공지능(AI)이 미래 사회에 미칠 영향",
-      description:
-        "AI 기술의 발전이 인류의 삶을 어떻게 변화시킬지에 대한 깊이 있는 고찰이 필요한 시점입니다.",
+      title: "인공지능(AI) 기술",
+      tagColor: "bg-[#eaf6fe] text-[#4EA8DE]",
+      issues: [
+        "AI 발전으로 인한 일자리 변화와 대응 방안",
+        "AI 창작물의 저작권은 누구에게 있는가?",
+        "자율주행 자동차의 윤리적 딜레마",
+      ],
     },
     {
       category: "사회 이슈",
-      title: "기후 변화와 지속 가능한 발전",
-      description:
-        "전 지구적 과제인 기후 변화에 대응하고 지속 가능한 사회를 만들기 위한 방안을 논의해 봅시다.",
+      title: "기후 변화와 환경",
+      tagColor: "bg-green-100 text-green-600",
+      issues: [
+        "탄소 중립 실현을 위한 개인과 국가의 역할",
+        "미래 세대를 위한 환경 보호의 중요성",
+      ],
     },
     {
       category: "문학",
-      title: "고전 문학이 현대 사회에 주는 교훈",
-      description:
-        "오랜 시간 동안 사랑받아 온 고전 작품들이 오늘날 우리에게 어떤 의미와 가치를 전달하는지 탐구해 보세요.",
+      title: "고전 문학의 현대적 가치",
+      tagColor: "bg-purple-100 text-purple-600",
+      issues: [
+        "셰익스피어의 비극이 현대인에게 주는 의미",
+        "소설 <1984>를 통해 본 현대 사회의 감시와 통제",
+      ],
     },
   ];
 
@@ -49,6 +63,26 @@ export default function HomePage() {
       prevIndex === carouselItems.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  // 스크롤 이벤트 처리
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // 아래로 스크롤하고, 스크롤 위치가 100px보다 크면 헤더를 숨깁니다.
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHeaderVisible(false);
+      } else {
+        setHeaderVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   // 커스텀 로고 SVG 컴포넌트
   const LogoIcon = ({ className = "" }) => (
@@ -219,7 +253,11 @@ export default function HomePage() {
       </Head>
       <div className="bg-white relative w-full min-h-screen">
         {/* Navigation Bar */}
-        <div className="bg-white flex h-11 sm:h-14 lg:h-16 items-center justify-between px-2 sm:px-4 lg:px-8 py-2.5 sticky top-0 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto border-b border-gray-100">
+        <div
+          className={`bg-white flex h-11 sm:h-14 lg:h-16 items-center justify-between px-2 sm:px-4 lg:px-8 py-2.5 fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full border-b border-gray-100 z-10 transition-transform duration-300 ${
+            headerVisible ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
           <div className="flex gap-2.5 sm:gap-3 lg:gap-4 items-center justify-center px-3 py-3">
             <div className="h-[21px] w-[26px] sm:h-6 sm:w-8 lg:h-8 lg:w-10">
               <LogoIcon className="w-full h-full" />
@@ -242,19 +280,22 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Space for fixed navigation bar */}
+        <div className="h-11 sm:h-14 lg:h-16 w-full" />
+
         {/* Space */}
         <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-white lg:hidden" />
 
         {/* Body */}
-        <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-0 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto lg:h-[calc(100vh-64px)]">
+        <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-0 pb-8 sm:pb-10 md:pb-12 lg:pb-0 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto lg:h-[calc(100vh-64px)]">
           {/* Left Column - Desktop: Hero + Navigation / Mobile: All content */}
           <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 lg:w-1/2 xl:w-2/5 lg:px-12 xl:px-16 lg:py-8 lg:h-full lg:overflow-hidden">
             {/* Hero Section - 이슈 탐색 캐러셀 */}
-            <div className="w-full lg:flex-1 lg:min-h-[400px]">
+            <div className="w-full lg:flex-1 lg:min-h-[350px]">
               <h3 className="text-xl font-bold text-gray-700 mb-4">
                 이슈 탐색
               </h3>
-              <div className="relative h-56 sm:h-64 md:h-72 lg:h-full w-full overflow-hidden">
+              <div className="relative h-60 sm:h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                 <div
                   className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -262,22 +303,26 @@ export default function HomePage() {
                   {carouselItems.map((item, index) => (
                     <div
                       key={index}
-                      className="w-full flex-shrink-0 h-full bg-white border border-gray-200 rounded-2xl p-6 flex flex-col justify-between text-gray-800 shadow-sm"
+                      className="w-full flex-shrink-0 h-full bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 flex flex-col text-gray-800 shadow-sm relative"
                     >
-                      <div>
+                      <div className="flex-1">
                         <p
-                          className={`font-semibold px-2 py-1 rounded-full inline-block text-xs mb-2 ${getTagColor(
-                            item.category
-                          )}`}
+                          className={`font-semibold px-2 py-1 rounded-full inline-block text-xs mb-2 ${item.tagColor}`}
                         >
                           {item.category}
                         </p>
-                        <h4 className="text-lg font-bold mb-2">{item.title}</h4>
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                          {item.description}
-                        </p>
+                        <h4 className="text-base sm:text-lg font-bold mb-2 sm:mb-3">
+                          {item.title}
+                        </h4>
+                        <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600 list-disc list-inside">
+                          {item.issues.map((issue, issueIndex) => (
+                            <li key={issueIndex} className="leading-relaxed">
+                              {issue}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <button className="self-start bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-200 transition-colors mt-4">
+                      <button className="absolute bottom-4 left-4 sm:left-6 bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg text-xs sm:text-sm hover:bg-gray-200 transition-colors">
                         자세히 보기
                       </button>
                     </div>

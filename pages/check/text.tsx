@@ -64,15 +64,22 @@ export default function TextCheckPage() {
                   strokeWidth={2}
                 />
               </div>
+
+              {/* 텍스트로 직접 입력하기 버튼 */}
+              <div className="mt-3 sm:mt-4">
+                <button className="w-full bg-white border border-[#4EA8DE] text-[#4EA8DE] rounded-lg px-4 py-2.5 sm:py-3 font-medium text-[14px] sm:text-[15px] lg:text-[16px] hover:bg-[#4EA8DE] hover:text-white transition-colors">
+                  텍스트로 직접 입력하기
+                </button>
+              </div>
             </div>
 
-            {/* Desktop: Show additional info or preview */}
-            <div className="hidden lg:block bg-blue-50 rounded-lg p-4 xl:p-6">
-              <h3 className="font-bold text-[#030303] text-[16px] xl:text-[18px] mb-2">
+            {/* 파일 업로드 안내 - 모바일에서도 표시 */}
+            <div className="bg-blue-50 rounded-lg p-3 sm:p-4 lg:p-4 xl:p-6">
+              <h3 className="font-bold text-[#030303] text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] mb-2">
                 파일 업로드 안내
               </h3>
-              <ul className="text-[#030303] text-[13px] xl:text-[14px] space-y-1 leading-relaxed">
-                <li>• 지원 형식: PDF, DOC, DOCX, TXT</li>
+              <ul className="text-[#030303] text-[12px] sm:text-[13px] lg:text-[13px] xl:text-[14px] space-y-1 leading-relaxed">
+                <li>• 지원 형식: PDF, TXT</li>
                 <li>• 최대 파일 크기: 10MB</li>
                 <li>• 문제 파일을 먼저 업로드해주세요</li>
               </ul>

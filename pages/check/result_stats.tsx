@@ -136,54 +136,6 @@ export default function ResultStatsPage() {
             </h2>
             {generateStatsDescription(analysisData.stats)}
           </div>
-
-          {/* Detailed Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {analysisData.stats.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white p-4 sm:p-5 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
-              >
-                <div className="text-center">
-                  <h3 className="font-bold text-[#030303] text-[14px] sm:text-[15px] lg:text-[16px] mb-2 tracking-[-0.5px]">
-                    {item.subject}
-                  </h3>
-                  <div
-                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto flex items-center justify-center text-white font-bold text-xl sm:text-2xl ${
-                      item.score >= 90
-                        ? "bg-green-500"
-                        : item.score >= 80
-                        ? "bg-[#4EA8DE]"
-                        : item.score >= 70
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                  >
-                    {item.score}
-                  </div>
-                  <p
-                    className={`mt-2 text-sm font-semibold ${
-                      item.score >= 90
-                        ? "text-green-600"
-                        : item.score >= 80
-                        ? "text-[#4EA8DE]"
-                        : item.score >= 70
-                        ? "text-yellow-600"
-                        : "text-red-600"
-                    }`}
-                  >
-                    {item.score >= 90
-                      ? "매우 우수"
-                      : item.score >= 80
-                      ? "우수"
-                      : item.score >= 70
-                      ? "보통"
-                      : "개선 필요"}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Bottom Section - Fixed */}

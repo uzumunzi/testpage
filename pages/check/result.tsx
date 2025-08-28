@@ -237,6 +237,39 @@ export default function CheckResultPage() {
 
         {/* Body - Scrollable */}
         <div className="bg-white flex flex-col px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2 sm:py-3 lg:py-4 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto flex-1 overflow-y-auto">
+          {/* Mobile - 종합 평가 최상단 배치 */}
+          <div className="lg:hidden mb-4 sm:mb-5">
+            {/* 종합 평가 */}
+            <div className="bg-white border border-[#CFCFCF] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="font-bold text-[#030303] text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] tracking-[-0.8px] mb-4">
+                종합 평가
+              </h3>
+              <div className="text-center my-4">
+                <div
+                  className={`w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full mx-auto flex items-center justify-center text-white font-extrabold text-3xl sm:text-4xl lg:text-5xl ${
+                    analysisData.summary.score >= 80
+                      ? "bg-[#4EA8DE]"
+                      : "bg-yellow-500"
+                  }`}
+                >
+                  {analysisData.summary.score}
+                </div>
+                <p
+                  className={`mt-3 text-xl sm:text-2xl font-bold ${
+                    analysisData.summary.score >= 80
+                      ? "text-[#4EA8DE]"
+                      : "text-yellow-600"
+                  }`}
+                >
+                  {analysisData.summary.grade}
+                </p>
+              </div>
+              <p className="text-[#030303] text-center leading-relaxed text-[13px] sm:text-[14px] lg:text-[15px]">
+                {analysisData.summary.comment}
+              </p>
+            </div>
+          </div>
+
           {/* Result Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 w-full">
             {/* Left Column - Main Analysis */}
@@ -333,8 +366,8 @@ export default function CheckResultPage() {
 
             {/* Right Column - Summary & Stats */}
             <div className="space-y-6 sm:space-y-7 lg:space-y-8">
-              {/* 종합 평가 */}
-              <div className="bg-white border border-[#CFCFCF] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm hover:shadow-md transition-shadow">
+              {/* 종합 평가 - 데스크톱에서만 표시 */}
+              <div className="hidden lg:block bg-white border border-[#CFCFCF] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-[#030303] text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] tracking-[-0.8px] mb-4">
                   종합 평가
                 </h3>
