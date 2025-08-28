@@ -12,39 +12,36 @@ export default function ResultStatsPage() {
   // 분석 데이터 - result.tsx에서 참고
   const analysisData = {
     stats: [
-      { subject: "맞춤법/문법", score: 92 },
+      { subject: "맞춤법/문법", score: 82 },
       { subject: "맥락", score: 78 },
-      { subject: "표현력", score: 85 },
-      { subject: "어휘력", score: 89 },
-      { subject: "논리성", score: 83 },
-      { subject: "창의성", score: 87 },
+      { subject: "어휘력", score: 72 },
+      { subject: "논리성", score: 70 },
+      { subject: "창의성", score: 68 },
     ],
   };
 
   const generateStatsDescription = (stats: StatItem[]) => {
-    const sortedStats = [...stats].sort((a, b) => b.score - a.score);
-    const highest = sortedStats[0];
-    const lowest = sortedStats[sortedStats.length - 1];
-
     return (
       <div className="space-y-4 text-gray-700 leading-relaxed">
         <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed">
-          AI 분석 결과, 전체적으로 균형 잡힌 글쓰기 능력을 보여주고 있습니다.
-          특히 <strong className="text-[#4EA8DE]">{highest.subject}</strong>{" "}
-          항목에서 {highest.score}점으로 가장 높은 점수를 받으셨습니다. 이는
-          해당 영역에서 매우 뛰어난 역량을 갖추고 있음을 의미합니다.
+          AI 분석 결과, 전반적으로 기본기(맞춤법/문법)는 안정적이며, 글의 구조를
+          갖추는 데 필요한 역량을 보여주고 있습니다. 특히 맞춤법/문법 항목에서
+          82점으로 가장 높은 점수를 받아 기초적인 글쓰기 능력은 충분히 확보된
+          상태입니다.
         </p>
         <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed">
-          반면, <strong className="text-red-600">{lowest.subject}</strong>{" "}
-          항목은 {lowest.score}점으로 다소 아쉬운 부분입니다. 글의 전체적인
-          완성도를 높이기 위해 해당 부분에 대한 보완 학습을 진행하시는 것을
-          추천합니다. 예를 들어, 맥락과 관련된 다양한 예시 글을 읽거나 논리적
-          연결성을 강화하는 연습을 해볼 수 있습니다.
+          반면,{" "}
+          <strong className="text-red-600">논리성(70점)과 어휘력(72점)</strong>
+          은 다소 낮은 점수를 기록했습니다. 이는 주제와 맞지 않는 어휘 사용과
+          논리적 타당성이 부족한 전개에서 비롯된 것입니다. 또한 창의성(68점)
+          역시 전개 방식이 다소 평범하여 아쉬움이 남습니다.
         </p>
         <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed">
-          다른 항목들도 전반적으로 우수한 점수를 기록했습니다. 현재의 강점을
-          유지하면서 부족한 부분을 꾸준히 보완해 나간다면 더욱 훌륭한 글을
-          작성하실 수 있을 것입니다.
+          글의 완성도를 높이기 위해서는 ① 주제와 직결된 어휘를 선별적으로
+          사용하고, ② 주장과 근거의 논리적 연결성을 강화하며, ③ 글에 새로운
+          관점을 부여할 수 있는 창의적 시도를 하는 것이 필요합니다. 현재의
+          안정적인 기본기를 유지하면서 부족한 부분을 보완해 나간다면 더욱 설득력
+          있고 완성도 높은 글을 작성하실 수 있을 것입니다.
         </p>
       </div>
     );

@@ -22,26 +22,20 @@ export default function TextCheckPage() {
       </Head>
       <div className="bg-white relative w-full min-h-screen flex flex-col">
         {/* Navigation Bar */}
-        <div className="bg-white flex h-11 sm:h-14 lg:h-16 items-center justify-between px-2 sm:px-4 lg:px-8 py-2.5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto border-b border-gray-100">
-          <Link
-            href="/"
-            className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center hover:opacity-80 transition-opacity"
-          >
-            <Home
-              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]"
-              strokeWidth={2}
-            />
-          </Link>
-          <div className="flex-1 font-bold text-[#1A1A1A] text-[20px] sm:text-[22px] lg:text-[24px] text-center tracking-[-1px]">
-            검사 페이지
+        <header className="w-full border-b border-gray-100 bg-white">
+          <div className="container mx-auto px-6 flex h-14 items-center justify-between">
+            <Link
+              href="/"
+              className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors"
+            >
+              <Home className="w-6 h-6 text-[#1A1A1A]" strokeWidth={2} />
+            </Link>
+            <h1 className="font-bold text-[#1A1A1A] text-lg">검사 페이지</h1>
+            <button className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors">
+              <Menu className="w-6 h-6 text-[#1A1A1A]" strokeWidth={2} />
+            </button>
           </div>
-          <div className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center">
-            <Menu
-              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]"
-              strokeWidth={2}
-            />
-          </div>
-        </div>
+        </header>
 
         {/* Body */}
         <div className="bg-white flex flex-col lg:flex-row gap-5 sm:gap-6 md:gap-8 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2 sm:py-3 lg:py-4 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto flex-1">

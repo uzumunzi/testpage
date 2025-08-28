@@ -15,73 +15,71 @@ import {
 
 export default function CheckResultPage() {
   const [showOtherDocumentPrompt, setShowOtherDocumentPrompt] = useState(true);
+  const [showSavePopup, setShowSavePopup] = useState(false);
 
   // 검사 결과 데이터 - 실제 분석 데이터 구조로 변경
   const analysisData = {
     spellingGrammar: [
       {
-        original: "이러한 현상은 명확한 원인 분석이 선행되야 한다.",
-        corrected: "이러한 현상은 명확한 원인 분석이 선행돼야 한다.",
-        reason: "'되야'는 '되어야'의 줄임말이므로 '돼야'가 올바른 표기입니다.",
+        original: "'있는데'",
+        corrected: "'있지만'",
+        reason:
+          "앞뒤 내용이 반대되므로 '있는데'의 연결 어미를 역접의 뜻을 나타내는 '있지만'으로 고쳤습니다.",
       },
       {
-        original: "학생들은 제각기 다른 개성을 가지고 있다.",
-        corrected: "학생들은 제각기 다른 개성을 지니고 있다.",
-        reason:
-          "'가지고 있다'보다 '지니고 있다'가 문어체에 더 적합한 표현입니다.",
+        original: "추구 하는",
+        corrected: "추구하는",
+        reason: "추구 하는 → 추구하는 (띄어쓰기 오류)",
       },
     ],
-    context:
-      "전반적인 논리의 흐름은 자연스럽지만, 서론에서 제시한 문제가 결론에서 충분히 해소되지 않은 느낌을 줍니다. 본론의 두 번째 문단과 세 번째 문단의 연결성을 강화하기 위해 연결어를 사용하는 것을 추천합니다.",
+    context: "'조카님'의~ 부터는 맥락에 어울리지 않는 내용이므로 삭제했습니다.",
     expressions: [
       {
-        phrase: "어쩔 수 없다",
+        phrase: "감탄고토",
         suggestion:
-          "불가피하다, 피할 수 없다 등의 표현으로 대체하여 논리적인 인상을 줄 수 있습니다.",
+          "'감탄고토'는 자신의 비위에 맞는 것만 좋아한다는 뜻이므로 진정성 있는 인물과는 관계가 멉니다. 따라서 '대의명분'과 같이 진정성과 관련이 있는 사자성어로 대체했습니다.",
       },
       {
-        phrase: "너무 좋은",
+        phrase: "동일선상",
         suggestion:
-          "'매우 뛰어난', '탁월한' 등 구체적이고 객관적인 표현을 사용하는 것이 좋습니다.",
+          "'동일선상'은 어떤 상황이나 조건이 동일하거나, 대등한 입장에서 비교되는 서로 다른 둘 이상의 대상에 쓰이는 말이므로, '동일한'으로 고치는 것이 맞습니다.",
       },
     ],
     synonyms: [
       {
-        word: "생각하다",
-        alternatives: "고려하다, 사료하다, 숙고하다, 고찰하다",
+        word: "부정적 시각",
+        alternatives: "적대적 시각",
       },
       {
-        word: "중요하다",
-        alternatives: "핵심적이다, 필수적이다, 관건이다, 요긴하다",
+        word: "긍정적 시각",
+        alternatives: "우호적 시각",
       },
-      { word: "결과", alternatives: "성과, 결실, 귀결, 소산" },
     ],
     summary: {
-      score: 87,
-      grade: "우수",
+      score: 65,
+      grade: "보통",
       comment:
-        "전반적으로 논리적 구성과 어휘 사용이 뛰어난 글입니다. 몇 가지 문법적 오류와 표현을 다듬는다면 더욱 완성도 높은 글이 될 것입니다.",
+        "전반적으로 이해 가능한 글이었으나, 어휘 사용의 부정확성, 맥락 일관성 부족, 문법적 세부 오류 등이 나타났습니다. 이러한 부분을 보완한다면 논리적 완결성과 학술적 완성도가 크게 향상될 수 있습니다.",
     },
     stats: [
-      { subject: "맞춤법", score: 92 },
+      { subject: "맞춤법/문법", score: 82 },
       { subject: "맥락", score: 78 },
-      { subject: "표현력", score: 85 },
-      { subject: "어휘력", score: 89 },
-      { subject: "논리성", score: 83 },
-      { subject: "창의성", score: 87 },
+      { subject: "어휘력", score: 72 },
+      { subject: "논리성", score: 70 },
+      { subject: "창의성", score: 68 },
     ],
   };
 
-  // 간단한 육각형 그래프 컴포넌트 (RadarChart 스타일)
-  const SimpleHexagonChart = () => {
+  // 간단한 오각형 그래프 컴포넌트 (RadarChart 스타일)
+  const SimplePentagonChart = () => {
     const size = 160;
     const center = size / 2;
     const radius = 60;
 
-    // 데이터 점 좌표 생성 (점수에 비례)
+    // 데이터 점 좌표 생성 (점수에 비례) - 5각형이므로 2π/5
     const dataPoints = analysisData.stats
       .map((item, i) => {
-        const angle = (i * Math.PI) / 3 - Math.PI / 2;
+        const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
         const scoreRadius = (item.score / 100) * radius;
         const x = center + scoreRadius * Math.cos(angle);
         const y = center + scoreRadius * Math.sin(angle);
@@ -91,7 +89,7 @@ export default function CheckResultPage() {
 
     // 라벨 위치 계산
     const labelPositions = analysisData.stats.map((item, i) => {
-      const angle = (i * Math.PI) / 3 - Math.PI / 2;
+      const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
       const labelRadius = radius + 20;
       const x = center + labelRadius * Math.cos(angle);
       const y = center + labelRadius * Math.sin(angle);
@@ -104,8 +102,8 @@ export default function CheckResultPage() {
           <svg width={size + 40} height={size + 40} className="text-gray-300">
             {/* 격자선 */}
             {[0.2, 0.4, 0.6, 0.8, 1.0].map((scale, index) => {
-              const scaledPoints = Array.from({ length: 6 }, (_, i) => {
-                const angle = (i * Math.PI) / 3 - Math.PI / 2;
+              const scaledPoints = Array.from({ length: 5 }, (_, i) => {
+                const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
                 const x = center + radius * scale * Math.cos(angle);
                 const y = center + radius * scale * Math.sin(angle);
                 return `${x + 20},${y + 20}`;
@@ -124,8 +122,8 @@ export default function CheckResultPage() {
             })}
 
             {/* 축선 */}
-            {Array.from({ length: 6 }, (_, i) => {
-              const angle = (i * Math.PI) / 3 - Math.PI / 2;
+            {Array.from({ length: 5 }, (_, i) => {
+              const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
               const x = center + radius * Math.cos(angle);
               const y = center + radius * Math.sin(angle);
               return (
@@ -159,7 +157,7 @@ export default function CheckResultPage() {
 
             {/* 데이터 점 */}
             {analysisData.stats.map((item, i) => {
-              const angle = (i * Math.PI) / 3 - Math.PI / 2;
+              const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
               const scoreRadius = (item.score / 100) * radius;
               const x = center + scoreRadius * Math.cos(angle);
               const y = center + scoreRadius * Math.sin(angle);
@@ -195,6 +193,13 @@ export default function CheckResultPage() {
     setShowOtherDocumentPrompt(false);
   };
 
+  const handleSave = () => {
+    // 실제 저장 로직을 여기에 구현
+    console.log("검사 결과를 라이브러리에 저장");
+    setShowSavePopup(false);
+    // 저장 완료 후 추가 동작 (예: 성공 메시지 표시, 페이지 이동 등)
+  };
+
   return (
     <>
       <Head>
@@ -203,37 +208,28 @@ export default function CheckResultPage() {
       </Head>
       <div className="bg-white relative w-full h-screen flex flex-col">
         {/* Navigation Bar */}
-        <div className="bg-white flex h-11 sm:h-14 lg:h-16 items-center justify-between px-2 sm:px-4 lg:px-8 py-2.5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto border-b border-gray-100 flex-shrink-0">
-          <div className="flex items-center gap-2">
-            <Link
-              href="/check/text"
-              className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center hover:opacity-80 transition-opacity"
-            >
-              <ArrowLeft
-                className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]"
-                strokeWidth={2}
-              />
-            </Link>
-            <Link
-              href="/"
-              className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center hover:opacity-80 transition-opacity"
-            >
-              <Home
-                className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]"
-                strokeWidth={2}
-              />
-            </Link>
+        <header className="w-full border-b border-gray-100 bg-white flex-shrink-0">
+          <div className="container mx-auto px-6 flex h-14 items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Link
+                href="/check/text"
+                className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors"
+              >
+                <ArrowLeft className="w-6 h-6 text-[#1A1A1A]" strokeWidth={2} />
+              </Link>
+              <Link
+                href="/"
+                className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors"
+              >
+                <Home className="w-6 h-6 text-[#1A1A1A]" strokeWidth={2} />
+              </Link>
+            </div>
+            <h1 className="font-bold text-[#1A1A1A] text-lg">검사 결과</h1>
+            <button className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors">
+              <Menu className="w-6 h-6 text-[#1A1A1A]" strokeWidth={2} />
+            </button>
           </div>
-          <div className="flex-1 font-bold text-[#1A1A1A] text-[20px] sm:text-[22px] lg:text-[24px] text-center tracking-[-1px]">
-            검사 결과
-          </div>
-          <div className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center">
-            <Menu
-              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1A1A1A]"
-              strokeWidth={2}
-            />
-          </div>
-        </div>
+        </header>
 
         {/* Body - Scrollable */}
         <div className="bg-white flex flex-col px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2 sm:py-3 lg:py-4 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto flex-1 overflow-y-auto">
@@ -350,13 +346,21 @@ export default function CheckResultPage() {
                   </div>
                   <div className="space-y-3">
                     {analysisData.synonyms.map((item, index) => (
-                      <div key={index}>
-                        <p className="font-semibold text-green-700 text-[13px] sm:text-[14px] lg:text-[15px]">
-                          {item.word}
-                        </p>
-                        <p className="text-[12px] sm:text-[13px] lg:text-[14px] text-[#030303] mt-1 leading-relaxed">
-                          {item.alternatives}
-                        </p>
+                      <div
+                        key={index}
+                        className="p-3 sm:p-4 bg-gray-50 rounded-lg"
+                      >
+                        <div className="flex items-center">
+                          <p className="font-semibold text-green-700 text-[13px] sm:text-[14px] lg:text-[15px]">
+                            {item.word}
+                          </p>
+                          <span className="mx-2 text-green-600 font-bold">
+                            →
+                          </span>
+                          <p className="text-[12px] sm:text-[13px] lg:text-[14px] text-[#030303] leading-relaxed">
+                            {item.alternatives}
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -409,9 +413,9 @@ export default function CheckResultPage() {
                     </h3>
                   </div>
 
-                  {/* 육각형 그래프 */}
+                  {/* 오각형 그래프 */}
                   <div className="mb-5">
-                    <SimpleHexagonChart />
+                    <SimplePentagonChart />
                   </div>
 
                   <div className="text-[#030303] text-center text-[12px] sm:text-[13px] lg:text-[14px] leading-relaxed tracking-[-0.5px]">
@@ -443,7 +447,10 @@ export default function CheckResultPage() {
           {/* Bottom Buttons */}
           <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-3 sm:py-4 lg:py-5">
             <div className="flex gap-3 sm:gap-4 lg:gap-5 w-full">
-              <button className="bg-[#F8F8F8] border border-[#CFCFCF] rounded px-4 sm:px-5 lg:px-6 py-3.5 sm:py-4 lg:py-5 font-bold text-[#1A1A1A] text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[17px] tracking-[-0.5px] min-w-[80px] sm:min-w-[100px] lg:min-w-[120px] hover:bg-[#F0F0F0] transition-colors">
+              <button
+                onClick={() => setShowSavePopup(true)}
+                className="bg-[#F8F8F8] border border-[#CFCFCF] rounded px-4 sm:px-5 lg:px-6 py-3.5 sm:py-4 lg:py-5 font-bold text-[#1A1A1A] text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[17px] tracking-[-0.5px] min-w-[80px] sm:min-w-[100px] lg:min-w-[120px] hover:bg-[#F0F0F0] transition-colors"
+              >
                 Save
               </button>
               <Link
@@ -455,6 +462,36 @@ export default function CheckResultPage() {
             </div>
           </div>
         </div>
+
+        {/* Save Popup */}
+        {showSavePopup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-xl w-11/12 max-w-sm mx-4">
+              <h3 className="text-lg font-bold mb-2 text-[#1A1A1A]">
+                검사 결과를 저장할까요?
+              </h3>
+              <p className="text-gray-600 mb-6 text-sm">
+                검사 결과를 라이브러리에 저장합니다.
+                <br />
+                실제 저장될 저장 1/5
+              </p>
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={() => setShowSavePopup(false)}
+                  className="bg-gray-200 text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors text-sm"
+                >
+                  No
+                </button>
+                <button
+                  onClick={handleSave}
+                  className="bg-[#4EA8DE] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#3A97CE] transition-colors text-sm"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

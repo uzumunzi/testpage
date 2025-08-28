@@ -14,10 +14,6 @@ import {
 import { getTagColor } from "../utils/tagColors";
 
 export default function HomePage() {
-  // 네비게이션 바 스크롤 상태
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [headerVisible, setHeaderVisible] = useState(true);
-
   // 캐러셀 상태 및 데이터 정의
   const carouselItems = [
     {
@@ -63,26 +59,6 @@ export default function HomePage() {
       prevIndex === carouselItems.length - 1 ? 0 : prevIndex + 1
     );
   };
-
-  // 스크롤 이벤트 처리
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // 아래로 스크롤하고, 스크롤 위치가 100px보다 크면 헤더를 숨깁니다.
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setHeaderVisible(false);
-      } else {
-        setHeaderVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   // 커스텀 로고 SVG 컴포넌트
   const LogoIcon = ({ className = "" }) => (
@@ -253,35 +229,26 @@ export default function HomePage() {
       </Head>
       <div className="bg-white relative w-full min-h-screen">
         {/* Navigation Bar */}
-        <div
-          className={`bg-white flex h-11 sm:h-14 lg:h-16 items-center justify-between px-2 sm:px-4 lg:px-8 py-2.5 fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full border-b border-gray-100 z-10 transition-transform duration-300 ${
-            headerVisible ? "translate-y-0" : "-translate-y-full"
-          }`}
-        >
-          <div className="flex gap-2.5 sm:gap-3 lg:gap-4 items-center justify-center px-3 py-3">
-            <div className="h-[21px] w-[26px] sm:h-6 sm:w-8 lg:h-8 lg:w-10">
-              <LogoIcon className="w-full h-full" />
-            </div>
-            <div className="font-bold text-[#030303] text-[16px] sm:text-lg md:text-xl lg:text-2xl tracking-[-0.8px]">
-              사유의 봇
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center p-1 w-11 h-11 lg:w-12 lg:h-12 hover:opacity-80 transition-opacity cursor-pointer">
-              <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8">
-                <Bell className="w-full h-full text-[#030303]" />
+        <div className="w-full border-b border-gray-100 bg-white">
+          <div className="container mx-auto px-6 flex h-14 items-center justify-between">
+            <div className="flex gap-3 items-center">
+              <div className="h-6 w-8">
+                <LogoIcon className="w-full h-full" />
+              </div>
+              <div className="font-bold text-[#030303] text-lg tracking-[-0.8px]">
+                사유의 봇
               </div>
             </div>
-            <div className="flex items-center justify-center p-1 w-11 h-11 lg:w-12 lg:h-12">
-              <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8">
-                <Menu className="w-full h-full text-[#030303]" />
-              </div>
+            <div className="flex items-center gap-2">
+              <button className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors">
+                <Bell className="w-6 h-6 text-[#030303]" />
+              </button>
+              <button className="flex items-center justify-center p-2 w-10 h-10 hover:bg-gray-100 rounded-md transition-colors">
+                <Menu className="w-6 h-6 text-[#030303]" />
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Space for fixed navigation bar */}
-        <div className="h-11 sm:h-14 lg:h-16 w-full" />
 
         {/* Space */}
         <div className="h-5 w-full max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto bg-white lg:hidden" />
