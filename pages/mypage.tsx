@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import BottomNav from "@/components/BottomNav";
 import {
   Home,
   Menu,
@@ -14,6 +15,10 @@ import {
   TrendingUp,
   Bell,
   MessageCircle,
+  CheckCircle,
+  AlertTriangle,
+  Target,
+  Shield,
 } from "lucide-react";
 
 export default function MyPage() {
@@ -209,23 +214,8 @@ export default function MyPage() {
             {/* User Info */}
             <div className="flex flex-col gap-1 sm:gap-2 flex-1">
               <div className="font-bold text-[#030303] text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] tracking-[-0.8px]">
-                User name
+                맞춤톡
               </div>
-              <div className="inline-flex items-center justify-center px-3 py-1 bg-[#4EA8DE] rounded-full self-start">
-                <div className="font-medium text-white text-[12px] sm:text-[13px] md:text-[14px] tracking-[-0.4px]">
-                  Tag
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Premium Upgrade Section */}
-          <div className="bg-[#4EA8DE] flex flex-col gap-2 sm:gap-3 px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 rounded-xl w-full">
-            <div className="font-bold text-white text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] tracking-[-0.8px]">
-              7일 무료로 프리미엄 구독권 사용해보기
-            </div>
-            <div className="font-normal text-white text-[12px] sm:text-[13px] md:text-[14px] tracking-[-0.4px] opacity-90">
-              무제한으로 문서를 검사해보세요!
             </div>
           </div>
 
@@ -258,78 +248,81 @@ export default function MyPage() {
               </div>
             </div>
 
-            {/* 고객지원 Section */}
+            {/* 나의 장점/취약점 Section */}
             <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 w-full">
               <div className="font-bold text-[#030303] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] tracking-[-0.8px]">
-                고객지원
+                나의 장점/취약점
               </div>
-              <div className="flex flex-col gap-3 sm:gap-4 w-full">
-                <div className="flex items-center justify-between py-3 sm:py-4 cursor-pointer hover:bg-gray-50 rounded-lg px-2">
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-[#4EA8DE]" />
-                    <div className="font-normal text-[#030303] text-[14px] sm:text-[15px] md:text-[16px] tracking-[-0.6px]">
-                      공지사항
-                    </div>
+
+              {/* 장점 카드 */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 sm:p-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
+                  <div className="font-semibold text-green-800 text-[14px] sm:text-[15px] md:text-[16px]">
+                    주요 장점
                   </div>
-                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#CFCFCF]" />
                 </div>
-                <div className="flex items-center justify-between py-3 sm:py-4 cursor-pointer hover:bg-gray-50 rounded-lg px-2">
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#4EA8DE]" />
-                    <div className="font-normal text-[#030303] text-[14px] sm:text-[15px] md:text-[16px] tracking-[-0.6px]">
-                      고객센터
-                    </div>
+                <div className="space-y-2 text-[13px] sm:text-[14px] text-green-700">
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>
+                      논리적 구성력이 뛰어나며 주제 전개가 체계적입니다
+                    </span>
                   </div>
-                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#CFCFCF]" />
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>어휘 선택이 적절하고 문장력이 우수합니다</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>독창적인 관점과 깊이 있는 사고력을 보여줍니다</span>
+                  </div>
                 </div>
+              </div>
+
+              {/* 취약점 카드 */}
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 sm:p-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600" />
+                  <div className="font-semibold text-orange-800 text-[14px] sm:text-[15px] md:text-[16px]">
+                    개선 필요 영역
+                  </div>
+                </div>
+                <div className="space-y-2 text-[13px] sm:text-[14px] text-orange-700">
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>
+                      문법적 정확성을 높이기 위한 꼼꼼한 검토가 필요합니다
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>
+                      문단 간 연결성을 강화하여 글의 흐름을 개선해보세요
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>구체적인 사례와 근거를 더 풍부하게 활용해보세요</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 종합 분석 보기 버튼 */}
+              <div className="flex items-center justify-between py-3 sm:py-4 cursor-pointer hover:bg-gray-50 rounded-lg px-2">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <Target className="w-5 h-5 sm:w-6 sm:h-6 text-[#4EA8DE]" />
+                  <div className="font-normal text-[#030303] text-[14px] sm:text-[15px] md:text-[16px] tracking-[-0.6px]">
+                    상세 분석 결과 보기
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#CFCFCF]" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-2 sm:py-3 lg:py-4 max-w-[393px] sm:max-w-md md:max-w-lg lg:max-w-full mx-auto">
-          <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 h-16 sm:h-18 md:h-20 lg:h-24 items-center justify-center w-full">
-            <Link
-              href="/"
-              className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity"
-            >
-              <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
-                <Home className="w-full h-full text-[#CFCFCF]" />
-              </div>
-              <div className="font-normal text-[#CFCFCF] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] text-center leading-[1.4]">
-                홈
-              </div>
-            </Link>
-            <Link
-              href="/check/text"
-              className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity"
-            >
-              <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
-                <Edit className="w-full h-full text-[#CFCFCF]" />
-              </div>
-              <div className="font-normal text-[#CFCFCF] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] text-center leading-[1.4]">
-                검사 페이지
-              </div>
-            </Link>
-            <div className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start">
-              <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
-                <BookOpen className="w-full h-full text-[#CFCFCF]" />
-              </div>
-              <div className="font-normal text-[#CFCFCF] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] text-center leading-[1.4]">
-                라이브러리
-              </div>
-            </div>
-            <div className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start">
-              <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
-                <User className="w-full h-full text-[#030303]" />
-              </div>
-              <div className="font-normal text-[#030303] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] text-center leading-[1.4]">
-                마이페이지
-              </div>
-            </div>
-          </div>
-        </div>
+        <BottomNav />
 
         {/* Bottom padding to account for fixed navigation */}
         <div className="h-20 sm:h-24 md:h-28 lg:h-32" />

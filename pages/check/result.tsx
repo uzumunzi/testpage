@@ -414,7 +414,7 @@ export default function CheckResultPage() {
                 Save
               </button>
               <Link
-                href="/"
+                href="/library"
                 className="bg-[#4EA8DE] rounded px-4 sm:px-5 lg:px-6 py-3.5 sm:py-4 lg:py-5 font-bold text-white text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[17px] tracking-[-0.5px] flex-1 flex items-center justify-center hover:bg-[#3A97CE] transition-colors"
               >
                 라이브러리로 이동하기

@@ -234,14 +234,17 @@ export default function HomePage() {
                   검사 페이지
                 </div>
               </Link>
-              <div className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start">
+              <Link
+                href="/library"
+                className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity"
+              >
                 <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10">
                   <BookOpen className="w-full h-full text-[#CFCFCF]" />
                 </div>
                 <div className="font-normal text-[#CFCFCF] text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px] text-center leading-[1.4]">
                   라이브러리
                 </div>
-              </div>
+              </Link>
               <Link
                 href="/mypage"
                 className="flex-1 flex flex-col gap-0.5 sm:gap-1 lg:gap-2 items-center justify-start cursor-pointer hover:opacity-80 transition-opacity"
